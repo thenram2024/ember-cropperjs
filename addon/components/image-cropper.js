@@ -1,4 +1,3 @@
-import { assign } from '@ember/polyfills';
 import { compare } from '@ember/utils';
 import { join, scheduleOnce } from '@ember/runloop';
 import { setProperties, set, get } from '@ember/object';
@@ -120,7 +119,7 @@ export default Component.extend({
 
         _cropper.destroy();
 
-        const opts = assign({}, options);
+        const opts = Object.assign({}, options);
         const source = get(this, 'source');
         const image = document.getElementById(`image-cropper-${get(this, 'elementId')}`);
         const newCropper = new this._Cropper(image, opts)
@@ -165,7 +164,7 @@ export default Component.extend({
       }
     }
 
-    set(this, '_prevOptions', assign({}, options));
+    set(this, '_prevOptions', Object.assign({}, options));
   },
 
   willDestroyElement() {
@@ -186,7 +185,7 @@ export default Component.extend({
       const options = get(this, 'options');
 
       // Need a copy because Cropper does not seem to like the Ember EmptyObject that is created from the `{{hash}}` helper
-      const opts = assign({}, options);
+      const opts = Object.assign({}, options);
 
       setProperties(this, {
         _cropper: new this._Cropper(image, opts),
